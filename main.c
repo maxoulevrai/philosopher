@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/24 19:22:12 by maleca            #+#    #+#             */
-/*   Updated: 2025/09/07 20:09:03 by maleca           ###   ########.fr       */
+/*   Created: 2025/11/24 15:10:34 by maleca            #+#    #+#             */
+/*   Updated: 2025/11/24 17:59:55 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "includes/philo.h"
 
-void	*ft_memchr(const void *ptr, int val, size_t siz)
+int	main(int ac, char **av)
 {
-	size_t			i;
-	unsigned char	*str;
+	t_table *table;
 
-	str = (unsigned char *)ptr;
-	i = 0;
-	while (i < siz)
-	{
-		if (str[i] == (unsigned char)val)
-			return (&str[i]);
-		i++;
-	}
-	return (NULL);
+	if (ac < 5 || ac > 6)
+		return (msg(STR_ERR_ARGS),NULL ,  EXIT_FAILURE);
+	if (!is_valid(av))
+		return (EXIT_FAILURE);
+	init_table(ac, av, table);
+	table = (ac, av);
+
 }

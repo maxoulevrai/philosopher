@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/24 19:11:05 by maleca            #+#    #+#             */
-/*   Updated: 2025/09/07 20:09:03 by maleca           ###   ########.fr       */
+/*   Created: 2025/11/24 15:10:02 by maleca            #+#    #+#             */
+/*   Updated: 2025/11/24 17:32:43 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../includes/philo.h"
 
-char	*ft_strchr(const char *str, int val)
+bool	*init_table(int ac, char **av, t_table *table)
 {
 	size_t	i;
-	char	c;
-
-	i = 0;
-	c = (char)val;
-	while (str[i])
+	t_table *args;
+	
+	i = 1;
+	while (av[i])
 	{
-		if (str[i] == c)
-			return (((char *)&str[i]));
-		i++;
+		if (!ft_is_digit(av[i]))
+			return (NULL);
 	}
-	if (c == '\0')
-		return (((char *)&str[i]));
-	return (NULL);
+	init(ac, av, args);
+	return (args);
 }

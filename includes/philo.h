@@ -1,28 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/07 19:37:19 by maleca            #+#    #+#             */
-/*   Updated: 2025/09/07 20:18:26 by maleca           ###   ########.fr       */
+/*   Created: 2025/09/23 18:53:30 by maleca            #+#    #+#             */
+/*   Updated: 2025/11/24 18:24:15 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
+#ifndef PHILO_H
+# define PHILO_H
 
-# define FT_PRINTF_H
-
-# include <stdarg.h>
+# include <pthread.h>
 # include <unistd.h>
-# include "libft.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <limits.h>
 
-int		ft_printf(const char *str, ...);
-void	ft_putcharf(char c, size_t *count);
-void	ft_putstrf(char *str, size_t *count);
-void	ft_putnbrf(int n, size_t *count);
-void	ft_putaddyf(unsigned long long adresse, size_t *count);
-void	ft_putnbr_basef(unsigned long long nb, char *base, size_t *count);
+typedef struct s_table
+{
+	int	nb_philo;
+	int	time_to_die;
+	int	time_to_eat;
+	int	time_to_sleep;
+	int	min_to_eat;
+
+}		t_table;
+
+typedef int bool;
+
+# define true 1
+# define false 0
+
+bool	init_table(int ac, char **av, t_table *table);
+int	positive_atoi(const char *nptr);
+int	only_digits(char *s);
 
 #endif
