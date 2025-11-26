@@ -6,20 +6,20 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:42:20 by maleca            #+#    #+#             */
-/*   Updated: 2025/11/24 18:38:43 by maleca           ###   ########.fr       */
+/*   Updated: 2025/11/25 16:05:41 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	only_digits(char **s)
+static int	only_digits(char *s)
 {
 	size_t	i;
 	
 	i = 0;
 	while (s[i])
 	{
-		if (s[i][j] < '0' || s[i][j] > '9')
+		if (s[i] < '0' || s[i] > '9')
 			return (0);
 		i++;
 	}
@@ -40,10 +40,10 @@ int	positive_atoi(const char *nptr)
 	}
 	if (nbr > INT_MAX)
 		nbr = -1;
-	return (nbr);
+	return ((int)nbr);
 }
 
-bool	is_valid(int ac, char **av, t_table *table)
+bool	is_valid(int ac, char **av)
 {
 	int	i;
 	int nb;
@@ -52,6 +52,14 @@ bool	is_valid(int ac, char **av, t_table *table)
 	nb = 0;
 	while (i < ac)
 	{
-		
+		if (!only_digits(av[i]))
+			return (hdl_err(ERR_DIGITS, av[i]), false);
+		nb = positive_atoi(av[i]);
+		if (i == 1 && (nb > MAX_PHILO || nb == 1))
+			return (hdl_err(ERR_MAX_COUNT, av[i]), false);
+		if (i != 1 && nb == -1)
+			return (hdl_err(ERR_MAX_COUNT, av[i]), false);
+		i++;
 	}
+	return (true);
 }

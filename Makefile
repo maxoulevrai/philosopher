@@ -9,8 +9,11 @@ CYAN			= \e[36m
 RESET			= \e[m
 
 SRCS_DIR = src/
-INC = includes/pipex.h
-SRCS = $(SRCS_DIR)pipex.c \
+INC = includes/philo.h
+SRCS = main.c \
+		$(SRCS_DIR)err.c \
+		$(SRCS_DIR)init.c \
+		$(SRCS_DIR)parsing.c \
 
 OBJS = $(SRCS:%.c=build/%.o)
 
@@ -20,14 +23,11 @@ CFLAGS = -Wall -Wextra -Werror -g -pthread
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIB)
-	@echo "$(GREEN)Linking $@$(NO_COLOR)"
+	@echo "$(GREEN)Linking $@$(RESET)"
 	@$(CC) $(CFLAGS) -o $@ $^ 
 	@echo "$(GREEN)Build complete$(NO_COLOR)"
 
-$(OBJS) $(INC) | build
-
 $(OBJS): | build
-
 
 build:
 	@mkdir -p build
