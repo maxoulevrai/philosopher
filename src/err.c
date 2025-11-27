@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 15:05:52 by maleca            #+#    #+#             */
-/*   Updated: 2025/11/27 19:46:19 by maleca           ###   ########.fr       */
+/*   Updated: 2025/11/27 21:39:41 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,15 @@ void	hdl_err(char *err_msg, t_table *table)
 		free(table->philo_tid);
 	if (table->undertaker_tid)
 		free(table->undertaker_tid);
+	if (table->fork)
+	{
+		while (&table->fork[i])
+		{
+			pthread_mutex_destroy(&table->fork[i]);
+			i++;
+		}
+		free(table->fork);
+	}
 	printf("%s", err_msg);
 	exit(1);
 }

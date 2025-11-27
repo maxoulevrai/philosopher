@@ -6,11 +6,28 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:02 by maleca            #+#    #+#             */
-/*   Updated: 2025/11/27 19:48:05 by maleca           ###   ########.fr       */
+/*   Updated: 2025/11/27 21:34:17 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+void	init_forks(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	table->fork = malloc(sizeof(pthread_mutex_t) * table->nb_philo);
+	if (!table->fork)
+		hdl_err(ERR_MALLOC, table);
+	while (i < table->nb_philo)
+	{
+		if (pthread_mutex_init(&table->fork[i], NULL))
+			hdl_err(ERR_MUTEX, table);
+		i++;
+	}
+}
+
 
 void	init_philo(t_table *table)
 {
@@ -31,7 +48,7 @@ void	init_philo(t_table *table)
 		hdl_err(ERR_ARGS, table);
 	if (pthread_create(table->undertaker_tid, NULL, undertaker_routine, NULL))
 		hdl_err(ERR_UNDERTAKER_TRHD , table);
-	// init_forks();
+	init_forks(table);
 }
 
 void	init_table(int ac, char **av, t_table **table)

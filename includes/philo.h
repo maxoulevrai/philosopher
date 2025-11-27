@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:53:30 by maleca            #+#    #+#             */
-/*   Updated: 2025/11/27 19:46:47 by maleca           ###   ########.fr       */
+/*   Updated: 2025/11/27 21:33:47 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define ERR_MALLOC_PHILO "malloc philo error\n"
 # define ERR_PHILO_TRHD "philo thread error\n"
 # define ERR_UNDERTAKER_TRHD "undertaker thread error\n"
+# define ERR_MUTEX "mutex init error\n"
+
 
 typedef struct s_table
 {
