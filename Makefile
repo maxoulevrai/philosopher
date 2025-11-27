@@ -14,6 +14,7 @@ SRCS = main.c \
 		$(SRCS_DIR)err.c \
 		$(SRCS_DIR)init.c \
 		$(SRCS_DIR)parsing.c \
+		$(SRCS_DIR)routine.c 
 
 OBJS = $(SRCS:%.c=build/%.o)
 

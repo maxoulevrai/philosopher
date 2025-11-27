@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:42:20 by maleca            #+#    #+#             */
-/*   Updated: 2025/11/25 16:05:41 by maleca           ###   ########.fr       */
+/*   Updated: 2025/11/27 19:59:28 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ bool	is_valid(int ac, char **av)
 	while (i < ac)
 	{
 		if (!only_digits(av[i]))
-			return (hdl_err(ERR_DIGITS, av[i]), false);
+			msg_err(ERR_DIGITS);
 		nb = positive_atoi(av[i]);
 		if (i == 1 && (nb > MAX_PHILO || nb == 1))
-			return (hdl_err(ERR_MAX_COUNT, av[i]), false);
+			msg_err(ERR_MAX_COUNT);
 		if (i != 1 && nb == -1)
-			return (hdl_err(ERR_MAX_COUNT, av[i]), false);
+			msg_err(ERR_MAX_COUNT);
 		i++;
 	}
 	return (true);

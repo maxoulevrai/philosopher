@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   err.c                                              :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/25 15:05:52 by maleca            #+#    #+#             */
-/*   Updated: 2025/11/27 19:46:19 by maleca           ###   ########.fr       */
+/*   Created: 2025/11/27 17:09:35 by maleca            #+#    #+#             */
+/*   Updated: 2025/11/27 19:29:34 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	msg_err(char *err_msg)
+void	*philo_routine(void *arg)
 {
-	printf("%s", err_msg);
-	exit (1);
+	(void)arg;
+	printf("philo\n");
+	return (0);
 }
 
-void	hdl_err(char *err_msg, t_table *table)
+void	*undertaker_routine(void *arg)
 {
-	int	i;
-
-	i = 0;
-	if (table->philo_tid)
-		free(table->philo_tid);
-	if (table->undertaker_tid)
-		free(table->undertaker_tid);
-	printf("%s", err_msg);
-	exit(1);
+	(void)arg;
+	printf("undertaker\n");
+	return (0);
 }
