@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:53:30 by maleca            #+#    #+#             */
-/*   Updated: 2025/11/27 21:33:47 by maleca           ###   ########.fr       */
+/*   Updated: 2025/11/28 21:23:28 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,23 @@
 typedef struct s_table
 {
 	int			nb_philo;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			min_to_eat;
-	pthread_t	*philo_tid;
+	time_t			time_to_die;
+	time_t			time_to_eat;
+	time_t			time_to_sleep;
+	time_t			min_to_eat;
 	pthread_t	*undertaker_tid;
 	pthread_mutex_t	*fork;
+	t_philo			philo;
 }		t_table;
 typedef int bool;
+
+typedef struct s_philo
+{
+	pthread_t	*philo_tid;
+	pthread_mutex_t	fork[2];
+	t_table			table;
+
+}		t_philo;
 
 
 void	init_table(int ac, char **av, t_table **table);
