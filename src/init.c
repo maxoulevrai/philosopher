@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:02 by maleca            #+#    #+#             */
-/*   Updated: 2025/11/27 21:34:17 by maleca           ###   ########.fr       */
+/*   Updated: 2025/11/29 18:41:08 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	init_forks(t_table *table)
 		i++;
 	}
 }
-
 
 void	init_philo(t_table *table)
 {
