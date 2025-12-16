@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 15:05:52 by maleca            #+#    #+#             */
-/*   Updated: 2025/11/27 21:39:41 by maleca           ###   ########.fr       */
+/*   Updated: 2025/12/16 12:26:33 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	msg_err(char *err_msg)
 	exit (1);
 }
 
-void	hdl_err(char *err_msg, t_table *table)
+void	hdl_err(char *err_msg, t_table *table, t_philo *philo)
 {
 	int	i;
 
 	i = 0;
-	if (table->philo_tid)
-		free(table->philo_tid);
+	if (philo->philo_tid)
+		free(philo->philo_tid);
 	if (table->undertaker_tid)
 		free(table->undertaker_tid);
 	if (table->fork)

@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:53:30 by maleca            #+#    #+#             */
-/*   Updated: 2025/11/29 18:42:36 by maleca           ###   ########.fr       */
+/*   Updated: 2025/12/16 16:58:27 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <sys/time.h>
+
 
 # define MAX_PHILO 200
 # define ERR_ARGS "args error\n"
@@ -39,19 +41,20 @@ typedef struct s_table
 	time_t			time_to_eat;
 	time_t			time_to_sleep;
 	time_t			min_to_eat;
-	pthread_t		*undertaker_tid;
-	pthread_t		*philo_tid;
+	// pthread_t		*undertaker_tid;
 	pthread_mutex_t	*fork;
-	// t_philo			philo;
+	t_philo			*philo;
 }		t_table;
 
-// typedef struct s_philo
-// {
-// 	pthread_t	*philo_tid;
-// 	unsigned int	fork[2];
-// 	t_table			table;
-// 	time_t			last_meal;
-// }		t_philo;
+typedef struct s_philo
+{
+	int				idx;
+	pthread_t		philo_tid;
+
+	int				fork;
+	time_t			last_meal;
+	t_table			*table;
+}		t_philo;
 
 
 void	init_table(int ac, char **av, t_table **table);
