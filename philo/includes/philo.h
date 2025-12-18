@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:53:30 by maleca            #+#    #+#             */
-/*   Updated: 2025/12/16 16:58:27 by maleca           ###   ########.fr       */
+/*   Updated: 2025/12/18 19:18:51 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,21 @@
 
 typedef enum {false, true} bool;
 
+typedef struct s_philo	t_philo;
+
 typedef struct s_table
 {
+	time_t			start;
 	int				nb_philo;
 	time_t			time_to_die;
 	time_t			time_to_eat;
 	time_t			time_to_sleep;
 	time_t			min_to_eat;
-	// pthread_t		*undertaker_tid;
-	pthread_mutex_t	*fork;
-	t_philo			*philo;
+	pthread_t		undertaker_tid;
+	pthread_mutex_t	*fork_locks;
+	pthread_mutex_t	print_lock;
+	pthread_mutex_t	sleep_lock;
+	t_philo			**philo;
 }		t_table;
 
 typedef struct s_philo
@@ -51,19 +56,19 @@ typedef struct s_philo
 	int				idx;
 	pthread_t		philo_tid;
 
-	int				fork;
-	time_t			last_meal;
+	unsigned int	forks[2];
+	unsigned int	times_ate;
+	time_t			last_ate;
 	t_table			*table;
 }		t_philo;
 
-
-void	init_table(int ac, char **av, t_table **table);
-void	msg_err(char *err_msg);
+void	init(int ac, char **av, t_table *table);
 void	hdl_err(char *err_msg, t_table *table);
+void	msg_err(char *err_msg);
 bool	is_valid(int ac, char **av);
 int		positive_atoi(const char *nptr);
 void	*philo_routine(void *arg);
 void	*undertaker_routine(void *arg);
-
+time_t	get_current_time(void);
 
 #endif
