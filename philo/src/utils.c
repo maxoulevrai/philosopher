@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 18:32:01 by root              #+#    #+#             */
-/*   Updated: 2025/12/18 19:09:29 by root             ###   ########.fr       */
+/*   Updated: 2025/12/19 19:48:07 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 void	print_status(t_philo *philo, char *status)
 {
 	pthread_mutex_lock(&philo->table->print_lock);
-	printf("%d %d %s", get_current_time(), philo->idx, status);
+	printf("%d %d %s", get_current_time(), (philo->idx + 1), status);
 	pthread_mutex_unlock(&philo->table->print_lock);
 }

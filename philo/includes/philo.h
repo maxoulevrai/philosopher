@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:53:30 by maleca            #+#    #+#             */
-/*   Updated: 2025/12/18 19:18:51 by root             ###   ########.fr       */
+/*   Updated: 2025/12/19 20:57:42 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,15 @@ typedef struct s_philo
 
 void	init(int ac, char **av, t_table *table);
 void	hdl_err(char *err_msg, t_table *table);
-void	msg_err(char *err_msg);
-bool	is_valid(int ac, char **av);
-int		positive_atoi(const char *nptr);
-void	*philo_routine(void *arg);
 void	*undertaker_routine(void *arg);
+void	*philo_routine(void *arg);
+void	msg_err(char *err_msg);
+int		positive_atoi(const char *nptr);
+bool	is_valid(int ac, char **av);
 time_t	get_current_time(void);
+
+void	*mims_routine(void *arg);
+void	philo_sleep(time_t sleep_time);
+void	print_status(t_philo *philo, char *status);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:34 by maleca            #+#    #+#             */
-/*   Updated: 2025/12/18 19:12:30 by root             ###   ########.fr       */
+/*   Updated: 2025/12/19 20:49:54 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,12 @@ int	main(int ac, char **av)
 	if (!is_valid(ac, av))
 		return (EXIT_FAILURE);
 	init(ac, av, &table);
+	if (table.nb_philo == 1)
+	{
+		if (pthread_create(table.philo.philo_tid, NULL, mims_routine, NULL))
+			hdl_err(ERR_PHILO_TRHD, &table);
+	}
+	else
+		multi_thread(table);
 	return (EXIT_SUCCESS);
 }
