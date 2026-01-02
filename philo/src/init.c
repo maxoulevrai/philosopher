@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:02 by maleca            #+#    #+#             */
-/*   Updated: 2025/12/19 20:26:24 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/02 19:10:02 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ t_philo	**init_philo(t_table *table)
 	return (philo);
 }
 
-void	init_global_locks(t_table *table)
+int	init_global_locks(t_table *table)
 {
-	init_forks(table);
+	if (!init_forks(table));
 	if (!pthread_mutex_init(&table->print_lock, NULL))
-		msg_err(ERR_MUTEX);
+		return (msg_err(ERR_MUTEX), 1);
 }
 
-void	init(int ac, char **av, t_table *table)
+int	init(int ac, char **av, t_table *table)
 {
 	int	i;
 	
@@ -81,6 +81,8 @@ void	init(int ac, char **av, t_table *table)
 	table->min_to_eat = -1;
 	if (ac == 6)
 		table->min_to_eat = positive_atoi(av[i++]);
-	init_global_locks(table);
-	init_philo(table);
+	if (!init_global_locks(table))
+		return (msg_err(), -1);
+	if (!init_philo(table))
+		return (msg_err(), 1);
 }

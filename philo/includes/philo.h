@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:53:30 by maleca            #+#    #+#             */
-/*   Updated: 2025/12/19 20:57:42 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/02 18:29:01 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct s_table
 	pthread_t		undertaker_tid;
 	pthread_mutex_t	*fork_locks;
 	pthread_mutex_t	print_lock;
-	pthread_mutex_t	sleep_lock;
 	t_philo			**philo;
 }		t_table;
 
@@ -72,6 +71,7 @@ bool	is_valid(int ac, char **av);
 time_t	get_current_time(void);
 
 void	*mims_routine(void *arg);
+void	multi_thread(t_table *table);
 void	philo_sleep(time_t sleep_time);
 void	print_status(t_philo *philo, char *status);
 

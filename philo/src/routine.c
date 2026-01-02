@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 17:09:35 by maleca            #+#    #+#             */
-/*   Updated: 2025/12/19 21:13:53 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/02 19:06:32 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	grail_routine(t_philo *philo)
 	print_status(philo, "has taken a fork");
 	print_status(philo, "is eating");
 	philo_sleep(philo->table->time_to_eat);
+	philo->last_ate = get_current_time;
 	pthread_mutex_unlock(&philo->table->fork_locks[philo->forks[0]]);
 	pthread_mutex_unlock(&philo->table->fork_locks[philo->forks[1]]);
 	philo_sleep(philo->table->time_to_sleep);
@@ -41,7 +42,8 @@ void	grail_routine(t_philo *philo)
 
 void	think_routine(t_philo *philo)
 {
-
+	print_status(philo, "is thinking");
+	philo_sleep(philo->table->time_to_die)
 }
 
 void	*start(void *arg)
