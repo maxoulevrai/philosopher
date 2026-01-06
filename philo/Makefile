@@ -21,7 +21,7 @@ SRCS = main.c \
 OBJS = $(SRCS:%.c=build/%.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -pthread -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -g -pthread #-fsanitize=thread
 
 all: $(NAME)
 

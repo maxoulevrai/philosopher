@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:02 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/06 18:50:31 by root             ###   ########.fr       */
+/*   Updated: 2026/01/06 19:37:49 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ static int	init_forks(t_table *table)
 	}
 	return (0);
 }
-
-
 
 static t_philo	**init_philo(t_table *table)
 {
