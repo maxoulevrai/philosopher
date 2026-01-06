@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:53:30 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/02 18:29:01 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/06 18:58:38 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,36 @@ typedef struct s_philo
 	t_table			*table;
 }		t_philo;
 
-void	init(int ac, char **av, t_table *table);
-void	hdl_err(char *err_msg, t_table *table);
-void	*undertaker_routine(void *arg);
-void	*philo_routine(void *arg);
-void	msg_err(char *err_msg);
-int		positive_atoi(const char *nptr);
-bool	is_valid(int ac, char **av);
-time_t	get_current_time(void);
 
-void	*mims_routine(void *arg);
+/* INIT */
+
+t_table	*init(int ac, char **av, t_table *table);
+
+/* PARSING */
+
+bool	is_valid(int ac, char **av);
+int		positive_atoi(const char *nptr);
+
+/* ROUTINE */
+
 void	multi_thread(t_table *table);
+void	*mims_routine(void *arg);
+void	end_simulation(char *err_msg, t_table *table);
+
+/* TIME */
+
+time_t	get_current_time(void);
 void	philo_sleep(time_t sleep_time);
+
+/* ERR */
+
 void	print_status(t_philo *philo, char *status);
+void	free_philo(t_table *table);
+void	free_locks(t_table *table);
+
+/* UTILS */
+
+void	msg_err(char *err_msg);
+
 
 #endif
