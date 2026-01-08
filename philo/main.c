@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:34 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/06 19:49:09 by root             ###   ########.fr       */
+/*   Updated: 2026/01/08 16:49:10 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ void	end_simulation(char *err_msg, t_table *table)
 {
 	free_philo(table);
 	free_locks(table);
+	free(table);
 	// 	free(table->undertaker_tid);
 	if (err_msg)
-		printf("%s", err_msg);
+		printf("%s\n", err_msg);
 }
 
 
@@ -38,14 +39,12 @@ int	main(int ac, char **av)
 			end_simulation(ERR_PHILO_TRHD, table);
 	}
 	else
-	{
 		multi_thread(table);
-		i = 0;
-		while (i < table->nb_philo)
-		{
-			pthread_join(table->philo[i]->philo_tid, NULL);
-			i++;
-		}
+	i = 0;
+	while (i < table->nb_philo)
+	{
+		pthread_join(table->philo[i]->philo_tid, NULL);
+		i++;
 	}
 	end_simulation(NULL, table);
 	return (EXIT_SUCCESS);

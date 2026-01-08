@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 15:05:52 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/06 17:23:24 by root             ###   ########.fr       */
+/*   Updated: 2026/01/08 16:48:31 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	free_philo(t_table *table)
 	if (table->philo)
 	{
 		i = 0;
-		while (table->philo[i])
+		while (i < table->nb_philo)
 		{
 			free(table->philo[i]);
 			i++;
