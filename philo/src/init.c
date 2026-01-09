@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:02 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/06 19:37:49 by root             ###   ########.fr       */
+/*   Updated: 2026/01/09 17:09:35 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static t_philo	**init_philo(t_table *table)
 		if (!philo[i])
 			return (msg_err(ERR_MALLOC), NULL);
 		philo[i]->idx = i;
+		philo[i]->last_ate = 0;
 		philo[i]->times_ate = 0;
 		philo[i]->table = table;
 		get_forks(philo[i]);
@@ -87,5 +88,6 @@ t_table	*init(int ac, char **av, t_table *table)
 	table->philo = init_philo(table);
 	if (!table->philo)
 		return (msg_err(ERR_MUTEX), NULL);
+	table->stop = 0;
 	return (table);
 }

@@ -6,13 +6,19 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 17:02:55 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/08 18:08:11 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/09 15:43:11 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "includes/philo.h"
 
-void	*routine(void *arg)
+void	*routine2(void *arg)
+{
+
+}
+
+
+void	*routine1(void *arg)
 {
 
 }
@@ -24,5 +30,6 @@ int	main(void)
 	pthread_t	tid2;
 
 	pthread_mutex_init(&test_lock, NULL);
+	
 
 }

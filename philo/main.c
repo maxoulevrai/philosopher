@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:34 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/08 16:49:10 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/09 17:27:28 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	end_simulation(char *err_msg, t_table *table)
 {
 	free_philo(table);
 	free_locks(table);
+	pthread_(table->undertaker_tid);
 	free(table);
-	// 	free(table->undertaker_tid);
 	if (err_msg)
 		printf("%s\n", err_msg);
 }

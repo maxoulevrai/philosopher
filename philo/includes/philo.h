@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:53:30 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/06 18:58:38 by root             ###   ########.fr       */
+/*   Updated: 2026/01/09 17:42:38 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_philo	t_philo;
 typedef struct s_table
 {
 	time_t			start;
+	int				stop;
 	int				nb_philo;
 	time_t			time_to_die;
 	time_t			time_to_eat;
@@ -91,6 +92,5 @@ void	free_locks(t_table *table);
 /* UTILS */
 
 void	msg_err(char *err_msg);
-
 
 #endif
