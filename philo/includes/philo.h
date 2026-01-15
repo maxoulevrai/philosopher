@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:53:30 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/09 17:42:38 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/15 18:57:19 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	end_simulation(char *err_msg, t_table *table);
 /* TIME */
 
 time_t	get_current_time(void);
-void	philo_sleep(time_t sleep_time);
+time_t	sim_time(t_table *table);
+void	thread_sleep(time_t sleep_time, t_table *table);
 
 /* ERR */
 

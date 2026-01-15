@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 17:09:35 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/09 17:11:52 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/15 19:08:54 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*mims_routine(void *arg)
 	philo->table->start = get_current_time();
 	pthread_mutex_lock(&philo->table->fork_locks[philo->forks[0]]);
 	print_status(philo, "has taken a fork");
-	philo_sleep(philo->table->time_to_sleep);
+	thread_sleep(philo->table->time_to_sleep, philo->table);
 	print_status(philo, "died");
 	pthread_mutex_unlock(&philo->table->fork_locks[philo->forks[0]]);
 	return (0);
@@ -33,13 +33,17 @@ void	*undertaker_routine(void *arg)
 
 	i = 0;
 	table = (t_table *)arg;
-	while (table->philo[i]->last_ate < table->time_to_die)
+	thread_sleep(table->time_to_eat, table);
+	while ((sim_time(table) - table->philo[i]->last_ate) < table->time_to_die
+			|| table->philo[i]->times_ate >= table->time_to_eat)
 	{
-		if (i == table->nb_philo)
+		if (i == table->nb_philo - 1)
 			i = 0;
 		i++;
 	}
-	table->stop = 1;
+	printf("%ld\n", table->philo[i]->last_ate);
+	print_status(table->philo[i], "died");
+	table->stop = true;
 	return (0);
 }
 
@@ -50,13 +54,15 @@ static void	grail_routine(t_philo *philo)
 	pthread_mutex_lock(&philo->table->fork_locks[philo->forks[1]]);
 	print_status(philo, "has taken a fork");
 	print_status(philo, "is eating");
-	philo_sleep(philo->table->time_to_eat);
+	thread_sleep(philo->table->time_to_eat, philo->table);
 	philo->last_ate = get_current_time() - philo->table->start;
+	philo->times_ate++;
 	pthread_mutex_unlock(&philo->table->fork_locks[philo->forks[0]]);
 	pthread_mutex_unlock(&philo->table->fork_locks[philo->forks[1]]);
 	print_status(philo, "is sleeping");
-	philo_sleep(philo->table->time_to_sleep);
+	thread_sleep(philo->table->time_to_sleep, philo->table);
 	print_status(philo, "is thinking");
+	thread_sleep(60, philo->table);
 }
 
 static void	*start(void *arg)
@@ -91,6 +97,13 @@ void	multi_thread(t_table *table)
 	{
 		if (pthread_create(&table->philo[i]->philo_tid, NULL, start, table->philo[i]))
 			end_simulation(ERR_PHILO_TRHD, table);
+		i++;
+	}
+	pthread_join(table->undertaker_tid, NULL);
+	i = 0;
+	while (i < table->nb_philo)
+	{
+		pthread_join(table->philo[i]->philo_tid, NULL);
 		i++;
 	}
 }

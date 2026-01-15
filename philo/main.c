@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:34 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/09 17:27:28 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/15 18:17:46 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	end_simulation(char *err_msg, t_table *table)
 {
 	free_philo(table);
 	free_locks(table);
-	pthread_(table->undertaker_tid);
 	free(table);
 	if (err_msg)
 		printf("%s\n", err_msg);
@@ -37,15 +36,11 @@ int	main(int ac, char **av)
 	{
 		if (pthread_create(&table->philo[0]->philo_tid, NULL, mims_routine, table->philo[0]))
 			end_simulation(ERR_PHILO_TRHD, table);
+		pthread_join(table->philo[0]->philo_tid, NULL);
 	}
 	else
 		multi_thread(table);
 	i = 0;
-	while (i < table->nb_philo)
-	{
-		pthread_join(table->philo[i]->philo_tid, NULL);
-		i++;
-	}
 	end_simulation(NULL, table);
 	return (EXIT_SUCCESS);
 }

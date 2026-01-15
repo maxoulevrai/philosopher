@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 17:07:15 by root              #+#    #+#             */
-/*   Updated: 2026/01/06 17:48:32 by root             ###   ########.fr       */
+/*   Updated: 2026/01/15 18:56:45 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@ time_t	get_current_time(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-
-void	philo_sleep(time_t sleep_time)
+time_t	sim_time(t_table *table)
+{
+	return (get_current_time() - table->start);
+}
+void	thread_sleep(time_t sleep_time, t_table *table)
 {
 	time_t	wake_up;
 
 	wake_up = get_current_time() + sleep_time;
-	while (get_current_time() < wake_up)
+	while (get_current_time() < wake_up && table->stop == false)
 		usleep(100);
 }

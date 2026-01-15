@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:02 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/09 17:09:35 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/15 18:24:20 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ static void	get_forks(t_philo *philo)
 {
 	philo->forks[0] = philo->idx;
 	philo->forks[1] = (philo->idx + 1) % philo->table->nb_philo;
+	if (philo->idx % 2 == 0)
+	{
+		philo->forks[1] = philo->idx;
+		philo->forks[0] = (philo->idx + 1) % philo->table->nb_philo;
+	}
 }
 
 static int	init_forks(t_table *table)
@@ -88,6 +93,6 @@ t_table	*init(int ac, char **av, t_table *table)
 	table->philo = init_philo(table);
 	if (!table->philo)
 		return (msg_err(ERR_MUTEX), NULL);
-	table->stop = 0;
+	table->stop = false;
 	return (table);
 }
