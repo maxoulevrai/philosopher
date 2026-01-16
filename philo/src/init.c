@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:02 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/15 18:24:20 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/16 19:01:22 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ static int	init_global_locks(t_table *table)
 		return (msg_err(ERR_MUTEX), 1);
 	if (pthread_mutex_init(&table->print_lock, NULL))
 		return (msg_err(ERR_MUTEX), 1);
+	if (pthread_mutex_init(&table->satiety_lock, NULL))
+		return (msg_err(ERR_MUTEX), 1);
+	if (pthread_mutex_init(&table->stop_lock, NULL))
+		return (msg_err(ERR_MUTEX), 1);
 	return (0);
 }
 
@@ -86,6 +90,7 @@ t_table	*init(int ac, char **av, t_table *table)
 	table->time_to_eat = positive_atoi(av[i++]);
 	table->time_to_sleep = positive_atoi(av[i++]);
 	table->min_to_eat = -1;
+	table->satiety = 0;
 	if (ac == 6)
 		table->min_to_eat = positive_atoi(av[i++]);
 	if (init_global_locks(table))

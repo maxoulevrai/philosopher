@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 17:07:15 by root              #+#    #+#             */
-/*   Updated: 2026/01/15 18:56:45 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/16 18:06:00 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ time_t	sim_time(t_table *table)
 {
 	return (get_current_time() - table->start);
 }
+
 void	thread_sleep(time_t sleep_time, t_table *table)
 {
 	time_t	wake_up;

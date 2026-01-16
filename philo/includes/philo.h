@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:53:30 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/15 18:57:19 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/16 18:53:21 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_table
 	time_t			start;
 	int				stop;
 	int				nb_philo;
+	int				satiety;
 	time_t			time_to_die;
 	time_t			time_to_eat;
 	time_t			time_to_sleep;
@@ -48,6 +49,8 @@ typedef struct s_table
 	pthread_t		undertaker_tid;
 	pthread_mutex_t	*fork_locks;
 	pthread_mutex_t	print_lock;
+	pthread_mutex_t	stop_lock;
+	pthread_mutex_t	satiety_lock;
 	t_philo			**philo;
 }		t_table;
 
