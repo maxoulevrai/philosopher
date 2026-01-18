@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 19:02:07 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/16 20:27:12 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/18 18:43:26 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,15 @@ void	*undertaker_routine(void *arg)
 	{
 		if (i == table->nb_philo - 1)
 			i = 0;
-		if (sim_time(table) - table->philo[i]->last_ate > table->time_to_die)
+		if (sim_time(table) - table->philo[i]->last_ate >= table->time_to_die)
+		{
+			print_status(table->philo[i], "died");
 			break ;
+		}
 		if (table->min_to_eat != -1)
 		{
 			pthread_mutex_lock(&table->satiety_lock);
-			if (table->satiety >= table->min_to_eat)
+			if (table->satiety >= table->nb_philo)
 			{
 				pthread_mutex_unlock(&table->satiety_lock);
 				break ;
@@ -51,11 +54,24 @@ void	*undertaker_routine(void *arg)
 			pthread_mutex_unlock(&table->satiety_lock);
 		}
 		i++;
+		thread_sleep(500, table);
 	}
 	printf("%ld\n", table->philo[i]->last_ate);
-	print_status(table->philo[i], "died");
+	pthread_mutex_lock(&table->stop_lock);
 	table->stop = true;
+	pthread_mutex_unlock(&table->stop_lock);
 	return (0);
+}
+
+static void	think_sleep_routine(t_philo *philo)
+{
+	print_status(philo, "is sleeping");
+	thread_sleep(philo->table->time_to_sleep, philo->table);
+	print_status(philo, "is thinking");
+		if (philo->idx % 2 == 0)
+			thread_sleep((philo->table->time_to_eat * 2) - philo->table->time_to_sleep, philo->table);
+		else
+			thread_sleep(philo->table->time_to_eat, philo->table);
 }
 
 static void	grail_routine(t_philo *philo)
@@ -65,9 +81,10 @@ static void	grail_routine(t_philo *philo)
 	pthread_mutex_lock(&philo->table->fork_locks[philo->forks[1]]);
 	print_status(philo, "has taken a fork");
 	print_status(philo, "is eating");
-	thread_sleep(philo->table->time_to_eat, philo->table);
 	philo->last_ate = sim_time(philo->table);
-	if (philo->times_ate++ == philo->table->min_to_eat && philo->table->min_to_eat != -1)
+	thread_sleep(philo->table->time_to_eat, philo->table);
+	philo->times_ate++;
+	if (philo->times_ate == philo->table->min_to_eat && philo->table->min_to_eat != -1)
 	{
 		pthread_mutex_lock(&philo->table->satiety_lock);
 		philo->table->satiety++;
@@ -75,10 +92,6 @@ static void	grail_routine(t_philo *philo)
 	}
 	pthread_mutex_unlock(&philo->table->fork_locks[philo->forks[1]]);
 	pthread_mutex_unlock(&philo->table->fork_locks[philo->forks[0]]);
-	print_status(philo, "is sleeping");
-	thread_sleep(philo->table->time_to_sleep, philo->table);
-	print_status(philo, "is thinking");
-	thread_sleep(60, philo->table);
 }
 
 static void	*start(void *arg)
@@ -88,13 +101,14 @@ static void	*start(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->idx % 2 == 0)
-		usleep(10);
+		usleep(philo->table->time_to_eat / 2);
 	pthread_mutex_lock(&philo->table->stop_lock);
 	stop = philo->table->stop;
 	pthread_mutex_unlock(&philo->table->stop_lock);
 	while (stop == false)
 	{
 		grail_routine(philo);
+		think_sleep_routine(philo);
 		pthread_mutex_lock(&philo->table->stop_lock);
 		stop = philo->table->stop;
 		pthread_mutex_unlock(&philo->table->stop_lock);

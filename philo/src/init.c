@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:02 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/16 19:01:22 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/18 18:15:26 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static t_philo	**init_philo(t_table *table)
 		philo[i] = malloc(sizeof(t_philo));
 		if (!philo[i])
 			return (msg_err(ERR_MALLOC), NULL);
-		philo[i]->idx = i;
+		philo[i]->idx = i + 1;
 		philo[i]->last_ate = 0;
 		philo[i]->times_ate = 0;
 		philo[i]->table = table;
