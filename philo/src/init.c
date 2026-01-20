@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:02 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/18 18:15:26 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/20 16:26:56 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static void	get_forks(t_philo *philo)
 {
-	philo->forks[0] = philo->idx;
-	philo->forks[1] = (philo->idx + 1) % philo->table->nb_philo;
+	philo->forks[0] = philo->idx - 1;
+	philo->forks[1] = (philo->idx ) % philo->table->nb_philo;
 	if (philo->idx % 2 == 0)
 	{
-		philo->forks[1] = philo->idx;
-		philo->forks[0] = (philo->idx + 1) % philo->table->nb_philo;
+		philo->forks[1] = philo->idx - 1;
+		philo->forks[0] = (philo->idx) % philo->table->nb_philo;
 	}
 }
 
@@ -73,6 +73,8 @@ static int	init_global_locks(t_table *table)
 	if (pthread_mutex_init(&table->satiety_lock, NULL))
 		return (msg_err(ERR_MUTEX), 1);
 	if (pthread_mutex_init(&table->stop_lock, NULL))
+		return (msg_err(ERR_MUTEX), 1);
+	if (pthread_mutex_init(&table->last_ate_lock, NULL))
 		return (msg_err(ERR_MUTEX), 1);
 	return (0);
 }

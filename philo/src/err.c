@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 15:05:52 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/16 18:04:32 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/20 15:37:04 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	free_locks(t_table *table)
 		free(table->fork_locks);
 	}
 	pthread_mutex_destroy(&table->print_lock);
+	pthread_mutex_destroy(&table->satiety_lock);
+	pthread_mutex_destroy(&table->stop_lock);
+
 }
 
 void	free_philo(t_table *table)

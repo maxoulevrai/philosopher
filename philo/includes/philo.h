@@ -6,7 +6,7 @@
 /*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:53:30 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/16 18:53:21 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/20 16:26:40 by maleca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_table
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	stop_lock;
 	pthread_mutex_t	satiety_lock;
+	pthread_mutex_t	last_ate_lock;
 	t_philo			**philo;
 }		t_table;
 
