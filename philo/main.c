@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:34 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/15 18:17:46 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/20 17:09:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	end_simulation(char *err_msg, t_table *table)
 int	main(int ac, char **av)
 {
 	t_table *table = NULL;
-	int		i;
 	
 	if (ac < 5 || ac > 6)
 		msg_err(ERR_ARGS);
@@ -40,7 +39,6 @@ int	main(int ac, char **av)
 	}
 	else
 		multi_thread(table);
-	i = 0;
 	end_simulation(NULL, table);
 	return (EXIT_SUCCESS);
 }

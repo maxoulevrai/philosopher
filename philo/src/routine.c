@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 19:02:07 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/20 16:28:14 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/20 17:45:58 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ static void	*start(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->idx % 2 == 0)
-		usleep(philo->table->time_to_eat / 2);
+		thread_sleep(philo->table->time_to_eat, philo->table);
 	pthread_mutex_lock(&philo->table->stop_lock);
 	stop = philo->table->stop;
 	pthread_mutex_unlock(&philo->table->stop_lock);
