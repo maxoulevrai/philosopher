@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:34 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/20 17:09:06 by root             ###   ########.fr       */
+/*   Updated: 2026/01/27 15:40:41 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,28 @@ void	end_simulation(char *err_msg, t_table *table)
 		printf("%s\n", err_msg);
 }
 
+void	multi_thread(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	table->start = get_current_time();
+	if (pthread_create(&table->undertaker_tid, NULL, undertaker_routine, table))
+		end_simulation(ERR_UNDERTAKER_TRHD, table);
+	while (i < table->nb_philo)
+	{
+		if (pthread_create(&table->philo[i]->philo_tid, NULL, start, table->philo[i]))
+			end_simulation(ERR_PHILO_TRHD, table);
+		i++;
+	}
+	pthread_join(table->undertaker_tid, NULL);
+	i = 0;
+	while (i < table->nb_philo)
+	{
+		pthread_join(table->philo[i]->philo_tid, NULL);
+		i++;
+	}
+}
 
 int	main(int ac, char **av)
 {

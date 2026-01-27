@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:53:30 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/20 16:26:40 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/27 16:19:31 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ int		positive_atoi(const char *nptr);
 
 void	multi_thread(t_table *table);
 void	*mims_routine(void *arg);
+void	*start(void *arg);
+void	*undertaker_routine(void *arg);
 void	end_simulation(char *err_msg, t_table *table);
 
 /* TIME */

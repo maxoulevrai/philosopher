@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 17:07:15 by root              #+#    #+#             */
-/*   Updated: 2026/01/20 17:18:08 by root             ###   ########.fr       */
+/*   Updated: 2026/01/27 12:06:13 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,4 @@ void	thread_sleep(time_t sleep_time, t_table *table)
 	wake_up = get_current_time() + sleep_time;
 	while (get_current_time() < wake_up && table->stop == false)
 		usleep(100);
-	
 }

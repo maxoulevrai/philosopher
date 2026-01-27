@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 19:02:07 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/20 17:45:58 by root             ###   ########.fr       */
+/*   Updated: 2026/01/27 20:05:41 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,22 @@ void	*mims_routine(void *arg)
 	philo->table->start = get_current_time();
 	pthread_mutex_lock(&philo->table->fork_locks[philo->forks[0]]);
 	print_status(philo, "has taken a fork");
-	thread_sleep(philo->table->time_to_sleep, philo->table);
+	thread_sleep(philo->table->time_to_die, philo->table);
 	print_status(philo, "died");
 	pthread_mutex_unlock(&philo->table->fork_locks[philo->forks[0]]);
 	return (0);
+}
+
+static bool	check_satiety_status(t_table *table)
+{
+	pthread_mutex_lock(&table->satiety_lock);
+	if (table->satiety >= table->nb_philo)
+	{
+		pthread_mutex_unlock(&table->satiety_lock);
+		return (true);
+	}
+	pthread_mutex_unlock(&table->satiety_lock);
+	return (false);
 }
 
 void	*undertaker_routine(void *arg)
@@ -38,25 +50,19 @@ void	*undertaker_routine(void *arg)
 	{
 		if (i == table->nb_philo - 1)
 			i = 0;
+		pthread_mutex_lock(&table->last_ate_lock);
 		if (sim_time(table) - table->philo[i]->last_ate >= table->time_to_die)
 		{
 			print_status(table->philo[i], "died");
+			pthread_mutex_unlock(&table->last_ate_lock);
 			break ;
 		}
-		if (table->min_to_eat != -1)
-		{
-			pthread_mutex_lock(&table->satiety_lock);
-			if (table->satiety >= table->nb_philo)
-			{
-				pthread_mutex_unlock(&table->satiety_lock);
-				break ;
-			}
-			pthread_mutex_unlock(&table->satiety_lock);
-		}
+		pthread_mutex_unlock(&table->last_ate_lock);
+		if (table->min_to_eat != -1 && check_satiety_status(table) == true)
+			break ;
+		thread_sleep(60, table);
 		i++;
-		thread_sleep(50, table);
 	}
-	printf("%ld\n", table->philo[i]->last_ate);
 	pthread_mutex_lock(&table->stop_lock);
 	table->stop = true;
 	pthread_mutex_unlock(&table->stop_lock);
@@ -66,7 +72,6 @@ void	*undertaker_routine(void *arg)
 static void	think_sleep_routine(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->stop_lock);
-
 	if (philo->table->stop == true)
 	{
 		pthread_mutex_unlock(&philo->table->stop_lock);
@@ -75,11 +80,18 @@ static void	think_sleep_routine(t_philo *philo)
 	pthread_mutex_unlock(&philo->table->stop_lock);
 	print_status(philo, "is sleeping");
 	thread_sleep(philo->table->time_to_sleep, philo->table);
+	pthread_mutex_lock(&philo->table->stop_lock);
+	if (philo->table->stop == true)
+	{
+		pthread_mutex_unlock(&philo->table->stop_lock);
+		return ;
+	}
+	pthread_mutex_unlock(&philo->table->stop_lock);
 	print_status(philo, "is thinking");
-		if (philo->idx % 2 == 0)
-			thread_sleep((philo->table->time_to_eat / 2), philo->table);
-		else
-			thread_sleep(philo->table->time_to_eat / 2, philo->table);
+		// if (philo->idx % 2 == 0)
+		// 	thread_sleep((philo->table->time_to_eat / 2), philo->table);
+		// else
+		// 	thread_sleep((philo->table->time_to_eat / 2), philo->table);
 }
 
 static void	grail_routine(t_philo *philo)
@@ -121,17 +133,15 @@ static void	grail_routine(t_philo *philo)
 	}
 }
 
-static void	*start(void *arg)
+void	*start(void *arg)
 {
 	t_philo	*philo;
 	int		stop;
 
 	philo = (t_philo *)arg;
-	if (philo->idx % 2 == 0)
+	if (philo->idx % 2 != 0)
 		thread_sleep(philo->table->time_to_eat, philo->table);
-	pthread_mutex_lock(&philo->table->stop_lock);
-	stop = philo->table->stop;
-	pthread_mutex_unlock(&philo->table->stop_lock);
+	stop = false;
 	while (stop == false)
 	{
 		grail_routine(philo);
@@ -141,27 +151,4 @@ static void	*start(void *arg)
 		pthread_mutex_unlock(&philo->table->stop_lock);
 	}
 	return (NULL);
-}
-
-void	multi_thread(t_table *table)
-{
-	int	i;
-
-	i = 0;
-	table->start = get_current_time();
-	if (pthread_create(&table->undertaker_tid, NULL, undertaker_routine, table))
-		end_simulation(ERR_UNDERTAKER_TRHD, table);
-	while (i < table->nb_philo)
-	{
-		if (pthread_create(&table->philo[i]->philo_tid, NULL, start, table->philo[i]))
-			end_simulation(ERR_PHILO_TRHD, table);
-		i++;
-	}
-	pthread_join(table->undertaker_tid, NULL);
-	i = 0;
-	while (i < table->nb_philo)
-	{
-		pthread_join(table->philo[i]->philo_tid, NULL);
-		i++;
-	}
 }
