@@ -15,7 +15,7 @@ SRCS = main.c \
 		$(SRCS_DIR)init.c \
 		$(SRCS_DIR)parsing.c \
 		$(SRCS_DIR)routine.c \
-		$(SRCS_DIR)time.c \
+		$(SRCS_DIR)undertaker.c \
 		$(SRCS_DIR)utils.c 
 
 OBJS = $(SRCS:%.c=build/%.o)

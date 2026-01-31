@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:02 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/27 11:59:39 by root             ###   ########.fr       */
+/*   Updated: 2026/01/31 20:30:32 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static t_philo	**init_philo(t_table *table)
 	t_philo	**philo;
 
 	i = 0;
-	philo = malloc(sizeof(t_philo) * table->nb_philo);
+	philo = malloc(sizeof(t_philo *) * table->nb_philo);
 	if (!philo)
 		msg_err(ERR_MALLOC_PHILO);
 	while (i < table->nb_philo)
@@ -55,8 +55,8 @@ static t_philo	**init_philo(t_table *table)
 		if (!philo[i])
 			return (msg_err(ERR_MALLOC), NULL);
 		philo[i]->idx = i + 1;
-		philo[i]->last_ate = 0;
 		philo[i]->times_ate = 0;
+		philo[i]->last_ate = 0;
 		philo[i]->table = table;
 		get_forks(philo[i]);
 		i++;
