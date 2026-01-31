@@ -6,11 +6,9 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 18:14:18 by root              #+#    #+#             */
-/*   Updated: 2026/01/31 20:41:12 by root             ###   ########.fr       */
+/*   Updated: 2026/01/31 20:51:05 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "../includes/philo.h"
 
@@ -31,7 +29,7 @@ void	*mims_routine(void *arg)
 static void	think_sleep_routine(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->stop_lock);
-	if (philo->table->stop == true)
+	if (philo->table->stop == TRUE)
 	{
 		pthread_mutex_unlock(&philo->table->stop_lock);
 		return ;
@@ -78,8 +76,8 @@ void	*start(void *arg)
 		usleep(1000);
 	// else if (philo->table->nb_philo % 2 != 0 && philo->idx == philo->table->nb_philo - 1)
 	// 	thread_sleep(philo->table->time_to_eat, philo->table);
-	stop = false;
-	while (stop == false)
+	stop = FALSE;
+	while (stop == FALSE)
 	{
 		grail_routine(philo);
 		think_sleep_routine(philo);

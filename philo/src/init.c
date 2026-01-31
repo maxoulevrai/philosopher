@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:10:02 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/31 20:30:32 by root             ###   ########.fr       */
+/*   Updated: 2026/01/31 20:48:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	get_forks(t_philo *philo)
 {
 	philo->forks[0] = philo->idx - 1;
-	philo->forks[1] = (philo->idx ) % philo->table->nb_philo;
+	philo->forks[1] = (philo->idx) % philo->table->nb_philo;
 	if (philo->idx % 2 == 0)
 	{
 		philo->forks[1] = philo->idx - 1;
@@ -42,7 +42,7 @@ static int	init_forks(t_table *table)
 
 static t_philo	**init_philo(t_table *table)
 {
-	int	i;
+	int		i;
 	t_philo	**philo;
 
 	i = 0;
@@ -82,7 +82,7 @@ static int	init_global_locks(t_table *table)
 t_table	*init(int ac, char **av, t_table *table)
 {
 	int	i;
-	
+
 	table = malloc(sizeof(t_table));
 	if (!table)
 		msg_err(ERR_MALLOC);
@@ -100,6 +100,6 @@ t_table	*init(int ac, char **av, t_table *table)
 	table->philo = init_philo(table);
 	if (!table->philo)
 		return (msg_err(ERR_MUTEX), NULL);
-	table->stop = false;
+	table->stop = FALSE;
 	return (table);
 }

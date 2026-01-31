@@ -10,7 +10,7 @@ RESET			= \e[m
 
 SRCS_DIR = src/
 INC = includes/philo.h
-SRCS = main.c \
+SRCS = $(SRCS_DIR)main.c \
 		$(SRCS_DIR)err.c \
 		$(SRCS_DIR)init.c \
 		$(SRCS_DIR)parsing.c \

@@ -6,15 +6,16 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 18:53:31 by root              #+#    #+#             */
-/*   Updated: 2026/01/31 20:19:44 by root             ###   ########.fr       */
+/*   Updated: 2026/01/31 20:52:53 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static bool	check_vital_status(t_table *table, time_t current_time, time_t *last_ate_copy)
+static t_bool	check_vital_status(t_table *table,
+		time_t current_time, time_t *last_ate_copy)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < table->nb_philo)
@@ -22,26 +23,26 @@ static bool	check_vital_status(t_table *table, time_t current_time, time_t *last
 		if (current_time - last_ate_copy[i] >= table->time_to_die)
 		{
 			print_status(table->philo[i], "died");
-			return (true);
+			return (TRUE);
 		}
 		i++;
 	}
-	return (false);
+	return (FALSE);
 }
 
-static bool	check_satiety_status(t_table *table)
+static t_bool	check_satiety_status(t_table *table)
 {
 	pthread_mutex_lock(&table->satiety_lock);
 	if (table->satiety >= table->nb_philo)
 	{
 		pthread_mutex_unlock(&table->satiety_lock);
 		pthread_mutex_lock(&table->stop_lock);
-		table->stop = true;
+		table->stop = TRUE;
 		pthread_mutex_unlock(&table->stop_lock);
-		return (true);
+		return (TRUE);
 	}
 	pthread_mutex_unlock(&table->satiety_lock);
-	return (false);
+	return (FALSE);
 }
 
 void	*undertaker_routine(void *arg)
@@ -63,9 +64,9 @@ void	*undertaker_routine(void *arg)
 			i++;
 		}
 		pthread_mutex_unlock(&table->last_ate_lock);
-		if (check_vital_status(table, current_time, last_ate_copy) == true)
+		if (check_vital_status(table, current_time, last_ate_copy) == TRUE)
 			break ;
-		if (table->min_to_eat != -1 && check_satiety_status(table) == true)
+		if (table->min_to_eat != -1 && check_satiety_status(table) == TRUE)
 			break ;
 		usleep(1000);
 	}

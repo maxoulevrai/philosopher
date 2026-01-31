@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maleca <maleca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 15:42:20 by maleca            #+#    #+#             */
-/*   Updated: 2025/11/29 18:44:29 by maleca           ###   ########.fr       */
+/*   Updated: 2026/01/31 20:51:56 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	only_digits(char *s)
 {
 	size_t	i;
-	
+
 	i = 0;
 	while (s[i])
 	{
@@ -43,10 +43,10 @@ int	positive_atoi(const char *nptr)
 	return ((int)nbr);
 }
 
-bool	is_valid(int ac, char **av)
+t_bool	is_valid(int ac, char **av)
 {
 	int	i;
-	int nb;
+	int	nb;
 
 	i = 1;
 	nb = 0;
@@ -61,5 +61,5 @@ bool	is_valid(int ac, char **av)
 			msg_err(ERR_MAX_COUNT);
 		i++;
 	}
-	return (true);
+	return (TRUE);
 }

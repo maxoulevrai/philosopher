@@ -12,7 +12,7 @@
 
 #include "../includes/philo.h"
 
-int		ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
 
@@ -25,7 +25,7 @@ int		ft_strcmp(char *s1, char *s2)
 void	print_status(t_philo *philo, char *status)
 {
 	pthread_mutex_lock(&philo->table->stop_lock);
-	if (philo->table->stop == true)
+	if (philo->table->stop == TRUE)
 	{
 		pthread_mutex_unlock(&philo->table->stop_lock);
 		return ;
@@ -34,7 +34,7 @@ void	print_status(t_philo *philo, char *status)
 	if (ft_strcmp(status, "died") == 0)
 	{
 		pthread_mutex_lock(&philo->table->stop_lock);
-		philo->table->stop = true;
+		philo->table->stop = TRUE;
 		pthread_mutex_unlock(&philo->table->stop_lock);
 	}
 	pthread_mutex_lock(&philo->table->print_lock);
@@ -67,7 +67,7 @@ void	thread_sleep(time_t sleep_time, t_table *table)
 		stop = table->stop;
 		pthread_mutex_unlock(&table->stop_lock);
 		if (stop)
-			break;
+			break ;
 		usleep(1000);
 	}
 }

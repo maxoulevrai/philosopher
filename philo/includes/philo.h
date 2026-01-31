@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:53:30 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/27 16:19:31 by root             ###   ########.fr       */
+/*   Updated: 2026/01/31 20:54:37 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <limits.h>
 # include <sys/time.h>
 
-
 # define MAX_PHILO 200
 # define ERR_ARGS "args error\n"
 # define ERR_DIGITS "digits error\n"
@@ -32,7 +31,7 @@
 # define ERR_UNDERTAKER_TRHD "undertaker thread error\n"
 # define ERR_MUTEX "mutex init error\n"
 
-typedef enum {false, true} bool;
+typedef enum {FALSE, TRUE} t_bool;
 
 typedef struct s_philo	t_philo;
 
@@ -66,14 +65,13 @@ typedef struct s_philo
 	t_table			*table;
 }		t_philo;
 
-
 /* INIT */
 
 t_table	*init(int ac, char **av, t_table *table);
 
 /* PARSING */
 
-bool	is_valid(int ac, char **av);
+t_bool	is_valid(int ac, char **av);
 int		positive_atoi(const char *nptr);
 
 /* ROUTINE */
