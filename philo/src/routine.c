@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 18:14:18 by root              #+#    #+#             */
-/*   Updated: 2026/01/31 20:51:05 by root             ###   ########.fr       */
+/*   Updated: 2026/02/03 15:28:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,11 @@ void	*start(void *arg)
 	pthread_mutex_lock(&philo->table->last_ate_lock);
 	philo->last_ate = philo->table->start;
 	pthread_mutex_unlock(&philo->table->last_ate_lock);
-	if (philo->idx % 2 == 0)
+	if (philo->table->nb_philo % 2 == 0 && philo->idx % 2 == 0)
 		usleep(1000);
-	// else if (philo->table->nb_philo % 2 != 0 && philo->idx == philo->table->nb_philo - 1)
-	// 	thread_sleep(philo->table->time_to_eat, philo->table);
+	else if (philo->table->nb_philo % 2 != 0
+		&& philo->idx == philo->table->nb_philo - 1)
+		usleep(1000);
 	stop = FALSE;
 	while (stop == FALSE)
 	{
