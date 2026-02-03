@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 18:53:31 by root              #+#    #+#             */
-/*   Updated: 2026/01/31 20:52:53 by root             ###   ########.fr       */
+/*   Updated: 2026/02/03 17:19:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	*undertaker_routine(void *arg)
 			break ;
 		if (table->min_to_eat != -1 && check_satiety_status(table) == TRUE)
 			break ;
-		usleep(1000);
+		usleep(200);
 	}
 	return (NULL);
 }

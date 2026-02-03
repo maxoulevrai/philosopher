@@ -68,6 +68,6 @@ void	thread_sleep(time_t sleep_time, t_table *table)
 		pthread_mutex_unlock(&table->stop_lock);
 		if (stop)
 			break ;
-		usleep(1000);
+		usleep(100);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:53:30 by maleca            #+#    #+#             */
-/*   Updated: 2026/01/31 20:54:37 by root             ###   ########.fr       */
+/*   Updated: 2026/02/03 15:30:09 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@
 # define ERR_UNDERTAKER_TRHD "undertaker thread error\n"
 # define ERR_MUTEX "mutex init error\n"
 
-typedef enum {FALSE, TRUE} t_bool;
+typedef enum 
+{
+	FALSE,
+	TRUE,
+} t_bool;
 
 typedef struct s_philo	t_philo;
 
